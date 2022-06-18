@@ -58,10 +58,18 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define RELAYX1_Pin GPIO_PIN_3
-#define RELAYX1_GPIO_Port GPIOB
-#define RELAYX2_Pin GPIO_PIN_4
-#define RELAYX2_GPIO_Port GPIOB
+#define RELAYX1_Pin GPIO_PIN_0
+#define RELAYX1_GPIO_Port GPIOA
+#define RELAYX2_Pin GPIO_PIN_1
+#define RELAYX2_GPIO_Port GPIOA
+#define RELAYY1_Pin GPIO_PIN_2
+#define RELAYY1_GPIO_Port GPIOA
+#define RELAYY2_Pin GPIO_PIN_3
+#define RELAYY2_GPIO_Port GPIOA
+#define RELAYZ1_Pin GPIO_PIN_4
+#define RELAYZ1_GPIO_Port GPIOA
+#define RELAYZ2_Pin GPIO_PIN_5
+#define RELAYZ2_GPIO_Port GPIOA
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */

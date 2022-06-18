@@ -97,8 +97,13 @@ void handle_ctrl(char *cmd){
 			break;
 		case 'o':
 			X_OFF();
+			Y_OFF();
+			Z_OFF();
 			break;
 		default:
+			X_OFF();
+			Y_OFF();
+			Z_OFF();
 			break;
 	}
 }
@@ -147,6 +152,7 @@ int main(void)
   while (1)
   {
 	  rc = HAL_UART_Receive(&huart1, (uint8_t *)ptr, 1, 100);
+
 	  handle_ctrl(cmd);
 	  *ptr = 0;
 
@@ -286,13 +292,13 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOH_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
-  __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, RELAYX1_Pin|RELAYX2_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, RELAYX1_Pin|RELAYX2_Pin|RELAYY1_Pin|RELAYY2_Pin
+                          |RELAYZ1_Pin|RELAYZ2_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin : PC13 */
   GPIO_InitStruct.Pin = GPIO_PIN_13;
@@ -301,12 +307,14 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : RELAYX1_Pin RELAYX2_Pin */
-  GPIO_InitStruct.Pin = RELAYX1_Pin|RELAYX2_Pin;
+  /*Configure GPIO pins : RELAYX1_Pin RELAYX2_Pin RELAYY1_Pin RELAYY2_Pin
+                           RELAYZ1_Pin RELAYZ2_Pin */
+  GPIO_InitStruct.Pin = RELAYX1_Pin|RELAYX2_Pin|RELAYY1_Pin|RELAYY2_Pin
+                          |RELAYZ1_Pin|RELAYZ2_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
 }
 
@@ -318,13 +326,13 @@ void X_LEFT(){
 	printout("X LEFT\r\n");
 }
 void Y_LEFT(){
-	HAL_GPIO_WritePin(RELAYX1_GPIO_Port, RELAYX1_Pin, 1);
-	HAL_GPIO_WritePin(RELAYX2_GPIO_Port, RELAYX2_Pin, 0);
+	HAL_GPIO_WritePin(RELAYY1_GPIO_Port, RELAYY1_Pin, 1);
+	HAL_GPIO_WritePin(RELAYY2_GPIO_Port, RELAYY2_Pin, 0);
 	printout("Y LEFT\r\n");
 }
 void Z_LEFT(){
-	HAL_GPIO_WritePin(RELAYX1_GPIO_Port, RELAYX1_Pin, 1);
-	HAL_GPIO_WritePin(RELAYX2_GPIO_Port, RELAYX2_Pin, 0);
+	HAL_GPIO_WritePin(RELAYZ1_GPIO_Port, RELAYZ1_Pin, 1);
+	HAL_GPIO_WritePin(RELAYZ2_GPIO_Port, RELAYZ2_Pin, 0);
 	printout("Z LEFT\r\n");
 
 }
@@ -334,13 +342,13 @@ void X_RIGHT(){
 	printout("X RIGHT\r\n");
 }
 void Y_RIGHT(){
-	HAL_GPIO_WritePin(RELAYX1_GPIO_Port, RELAYX1_Pin, 0);
-	HAL_GPIO_WritePin(RELAYX2_GPIO_Port, RELAYX2_Pin, 1);
+	HAL_GPIO_WritePin(RELAYY1_GPIO_Port, RELAYY1_Pin, 0);
+	HAL_GPIO_WritePin(RELAYY2_GPIO_Port, RELAYY2_Pin, 1);
 	printout("Y RIGHT\r\n");
 }
 void Z_RIGHT(){
-	HAL_GPIO_WritePin(RELAYX1_GPIO_Port, RELAYX1_Pin, 0);
-	HAL_GPIO_WritePin(RELAYX2_GPIO_Port, RELAYX2_Pin, 1);
+	HAL_GPIO_WritePin(RELAYZ1_GPIO_Port, RELAYZ1_Pin, 0);
+	HAL_GPIO_WritePin(RELAYZ2_GPIO_Port, RELAYZ2_Pin, 1);
 	printout("Z RIGHT\r\n");
 }
 
@@ -350,12 +358,12 @@ void X_OFF(){
 	HAL_GPIO_WritePin(RELAYX2_GPIO_Port, RELAYX2_Pin, 1);
 }
 void Y_OFF(){
-	HAL_GPIO_WritePin(RELAYX1_GPIO_Port, RELAYX1_Pin, 1);
-	HAL_GPIO_WritePin(RELAYX2_GPIO_Port, RELAYX2_Pin, 1);
+	HAL_GPIO_WritePin(RELAYY1_GPIO_Port, RELAYY1_Pin, 1);
+	HAL_GPIO_WritePin(RELAYY2_GPIO_Port, RELAYY2_Pin, 1);
 }
 void Z_OFF(){
-	HAL_GPIO_WritePin(RELAYX1_GPIO_Port, RELAYX1_Pin, 1);
-	HAL_GPIO_WritePin(RELAYX2_GPIO_Port, RELAYX2_Pin, 1);}
+	HAL_GPIO_WritePin(RELAYZ1_GPIO_Port, RELAYZ1_Pin, 1);
+	HAL_GPIO_WritePin(RELAYZ2_GPIO_Port, RELAYZ2_Pin, 1);}
 
 
 /* USER CODE END 4 */
